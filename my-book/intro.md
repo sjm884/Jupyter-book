@@ -1,11 +1,17 @@
-# Welcome to your Jupyter Book
+# Welcome to Sarah's Jupyter Book!
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+This book was prepared for Assignment 8 of the <Data science tool> box course at UBC. 
 
-Check out the content pages bundled with this sample book to see more.
+```{figure} UBC_logo.png
+ ---
+ height: 300px
+ name: UBC_logo
+ ---
+ The UBC logo!
+ ```
 
-```{tableofcontents}
-```
+
+## Content
+
+To create this book I will be using my projects from previous data science courses <Introduction to Python for Data Science>, <Data Vizulization>, and <Introduction to Machine Learning>
+    
