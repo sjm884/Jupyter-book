@@ -50,7 +50,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Exploratory Data Analysis of the Vancouver Street Trees Dataset vancouvertrees" href="DataViz/final_project_EDA.html" />
+    <link rel="next" title="1. Exploratory Data Analysis of The Vancouver Street Trees Data" href="DataViz/final_project_EDA.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -96,18 +96,22 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Data Visulization
+  Exploratory Data Analysis
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="DataViz/final_project_EDA.html">
-   1. Exploratory Data Analysis of the Vancouver Street Trees Dataset
-   <span class="xref cite">
-    vancouvertrees
-   </span>
+   1. Exploratory Data Analysis of The Vancouver Street Trees Data
   </a>
  </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Final Report
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="DataViz/final_project_report.html">
    3. Variety of Vancouver Street Trees
@@ -185,14 +189,23 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#height-300px-name-ubc-logo">
-   height: 300px
-name: UBC_logo
+  <a class="reference internal nav-link" href="#name-ubc-logo">
+   name: UBC_logo
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#content">
    Content
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#name-street-trees">
+   name: street-trees
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#city-map">
+   City Map
   </a>
  </li>
 </ul>
@@ -216,14 +229,23 @@ name: UBC_logo
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#height-300px-name-ubc-logo">
-   height: 300px
-name: UBC_logo
+  <a class="reference internal nav-link" href="#name-ubc-logo">
+   name: UBC_logo
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#content">
    Content
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#name-street-trees">
+   name: street-trees
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#city-map">
+   City Map
   </a>
  </li>
 </ul>
@@ -237,18 +259,59 @@ name: UBC_logo
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="welcome-to-sarah-s-jupyter-book">
 <h1>Welcome to Sarah’s Jupyter Book!<a class="headerlink" href="#welcome-to-sarah-s-jupyter-book" title="Permalink to this headline">¶</a></h1>
-<p>This book was prepared for Assignment 8 of the <Data science tool> box course at UBC.</p>
-<div class="section" id="height-300px-name-ubc-logo">
-<h2>height: 300px
-name: UBC_logo<a class="headerlink" href="#height-300px-name-ubc-logo" title="Permalink to this headline">¶</a></h2>
-<p>The UBC logo!</p>
+<p>This book was prepared for Assignment 8 of the <em>Data science tool box</em> course at the University of British Columbia.</p>
+<div class="section" id="name-ubc-logo">
+<h2>name: UBC_logo<a class="headerlink" href="#name-ubc-logo" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="figure align-default">
 <img alt="_images/UBC_logo.png" src="_images/UBC_logo.png" />
 </div>
 <div class="section" id="content">
 <h2>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h2>
-<p>To create this book I will be using my projects from previous data science courses <Introduction to Python for Data Science>, <Data Vizulization>, and <Introduction to Machine Learning></p>
+<p>To create this book, I will be using my final project from the <em>Data Visualization</em> course taken in 2021 as part of the <em>Key fundamentals in data science</em> certificate from UBC. This project explored the Vancouver Street Trees data <span id="id1">[]</span> available from the City of Vancouver.</p>
+<div class="margin sidebar">
+<p class="sidebar-title">Did you know?</p>
+<p>The Vancouver Street Trees Dataset has been downloaded over 5000 times!</p>
+</div>
+<div class="figure align-default">
+<img alt="tree-vancouver.jpg" src="tree-vancouver.jpg" />
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can find the Vancouver Street Trees dataset in the City of Vancouver’s Open Data Portal.</p>
+</div>
+</div>
+<div class="section" id="name-street-trees">
+<h2>name: street-trees<a class="headerlink" href="#name-street-trees" title="Permalink to this headline">¶</a></h2>
+<p>Street trees in Vancouver</p>
+</div>
+<div class="section" id="city-map">
+<h2>City Map<a class="headerlink" href="#city-map" title="Permalink to this headline">¶</a></h2>
+<p>As part of this project, the folowing code was provided to allow us to visualize the distribution of these street trees on a map of Vancouver.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can find 4 different world projections from vega_datasets</p>
+</div>
+<p>First, loading a <em>.geojson</em> file to make a map of vancouver</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">url_geojson</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/UBC-MDS/exploratory-data-viz/main/data/local-area-boundary.geojson&#39;</span>
+    <span class="n">data_geojson_remote</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url_geojson</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">DataFormat</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s1">&#39;features&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">))</span>
+    <span class="n">data_geojson_remote</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then, creating a base map of Vancouver onto which we can overlay our code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">vancouver_map</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">data_geojson_remote</span><span class="p">)</span><span class="o">.</span><span class="n">mark_geoshape</span><span class="p">(</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">reflectY</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">vancouver_map</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -282,7 +345,7 @@ name: UBC_logo<a class="headerlink" href="#height-300px-name-ubc-logo" title="Pe
     <a class='right-next' id="next-link" href="DataViz/final_project_EDA.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>Exploratory Data Analysis of the Vancouver Street Trees Dataset <span class="xref cite">vancouvertrees</span></p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Exploratory Data Analysis of The Vancouver Street Trees Data</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

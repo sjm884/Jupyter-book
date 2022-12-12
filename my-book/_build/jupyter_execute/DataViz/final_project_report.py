@@ -149,7 +149,7 @@ species_select = (alt.Chart(trees_small).transform_filter(click_year).mark_bar()
 
 # While we do have specific information about where each tree was planted, I am most interested in planting methods that cover or restrict the roots. A healthy root system is essential to tree growth, my hypothesis is that planting trees with a root barrier will stunt the growth of the tree. To measure growth, we have both diameter and height.
 
-# In[10]:
+# In[6]:
 
 
 # Create a scatter plot to visualize tree growth

@@ -1,9 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## Exploratory Data Analysis of the Vancouver Street Trees Dataset {cite}`vancouvertrees`
+# ## Exploratory Data Analysis of The Vancouver Street Trees Data
 # 
-# This report was prepared by Sarah McDonald on December 12, 2021, as the final project for a Data Visualization class at the University of British Columbia using a [subset](https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv) of the Vancouver Street Trees dataset provided. 
+# This report was prepared by Sarah McDonald on December 12, 2021, as the final project for a Data Visualization class at the University of British Columbia using a [subset](https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv) of the Vancouver Street Trees Data {cite}`vancouvertrees` provided.
+# 
+#  ```{figure} tree-vancouver.jpg
+#  ---
+#  name: street-trees
+#  ---
+#  Street trees in Vancouver
+#  ```
 
 # In[1]:
 
@@ -12,7 +19,6 @@
 import pandas as pd
 import altair as alt
 import json
-alt.data_transformers.enable("data_server")
 
 
 # In[2]:
@@ -175,6 +181,13 @@ tree_side
 
 
 # It looks like the side of the street trees are planted on makes no difference to size however, trees planted with a root barrier do seem to be smaller. Let's see if the trees with root barriers are younger than those without using our full dataset.
+# 
+#  ```{figure} root-barrier.jpg
+#  ---
+#  name: root-barrier
+#  ---
+#  An example of a root barrier. These are used to prevent tree roots from damaging the sidewalk.
+#  ```
 
 # In[17]:
 

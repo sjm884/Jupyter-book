@@ -3,6 +3,8 @@ This book was prepared for Assignment 8 of the *Data science tool box* course at
 
 ```{figure} UBC_logo.png
  ---
+  height: 200px
+ width: 150px
  name: UBC_logo
  ---
  ```
@@ -11,11 +13,11 @@ To create this book, I will be using my final project from the *Data Visualizati
 ```{margin} Did you know?
 The Vancouver Street Trees Dataset has been downloaded over 5000 times!
 ```
-```{figure} tree-vancouver.jpg
+```{figure} images/vancouver.jpeg
  ---
- name: street-trees
+ name: vancouver
  ---
- Street trees in Vancouver
+ The City of Vancouver
  ```
 ```{note}
 You can find the Vancouver Street Trees dataset in the City of Vancouver's Open Data Portal.
