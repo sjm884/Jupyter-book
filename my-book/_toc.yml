@@ -1,14 +1,9 @@
 # Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
-
 format: jb-book
 root: intro
 parts:
-  - caption: Data Visualization
-    numbered: True
-chapters:
-- file: DataViz/final_project_EDA.ipynb
-    title: Vancouver Street Trees EDA
--file: DataViz/final_project_report.ipynb
-    tile: Vancouver Street Trees Report
-
+  - caption: Data Visulization
+    numbered: True  # Only applies to chapters in Part 1.
+    chapters:
+    - file: DataViz/final_project_EDA.ipynb
+    - file: DataViz/final_project_report.ipynb

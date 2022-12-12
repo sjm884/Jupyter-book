@@ -1,0 +1,1943 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1. Exploratory Data Analysis of the Vancouver Street Trees Dataset vancouvertrees &#8212; My book - Assignment 8</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script >const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Variety of Vancouver Street Trees" href="final_project_report.html" />
+    <link rel="prev" title="Welcome to Sarah’s Jupyter Book!" href="../intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">My book - Assignment 8</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to Sarah’s Jupyter Book!
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Data Visulization
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   1. Exploratory Data Analysis of the Vancouver Street Trees Dataset
+   <span class="xref cite">
+    vancouvertrees
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="final_project_report.html">
+   3. Variety of Vancouver Street Trees
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/DataViz/final_project_EDA.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/DataViz/final_project_EDA.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   1. Exploratory Data Analysis of the Vancouver Street Trees Dataset
+   <span class="xref cite">
+    vancouvertrees
+   </span>
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#questions-of-interest">
+   2. Questions of Interest
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Exploratory Data Analysis of the Vancouver Street Trees Dataset vancouvertrees</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   1. Exploratory Data Analysis of the Vancouver Street Trees Dataset
+   <span class="xref cite">
+    vancouvertrees
+   </span>
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#questions-of-interest">
+   2. Questions of Interest
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="section" id="exploratory-data-analysis-of-the-vancouver-street-trees-dataset-vancouvertrees">
+<h1><span class="section-number">1. </span>Exploratory Data Analysis of the Vancouver Street Trees Dataset <span id="id1">[]</span><a class="headerlink" href="#exploratory-data-analysis-of-the-vancouver-street-trees-dataset-vancouvertrees" title="Permalink to this headline">¶</a></h1>
+<p>This report was prepared by Sarah McDonald on December 12, 2021, as the final project for a Data Visualization class at the University of British Columbia using a <a class="reference external" href="https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv">subset</a> of the Vancouver Street Trees dataset provided.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import libraries needed for this analysis</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="n">alt</span><span class="o">.</span><span class="n">data_transformers</span><span class="o">.</span><span class="n">enable</span><span class="p">(</span><span class="s2">&quot;data_server&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Import libraries needed for this analysis</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">json</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">alt</span><span class="o">.</span><span class="n">data_transformers</span><span class="o">.</span><span class="n">enable</span><span class="p">(</span><span class="s2">&quot;data_server&quot;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;altair&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load in the data and view a subset</span>
+<span class="n">trees_url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv&#39;</span>
+<span class="n">trees_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">trees_url</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date_planted&#39;</span><span class="p">])</span>
+<span class="n">trees_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>std_street</th>
+      <th>on_street</th>
+      <th>species_name</th>
+      <th>neighbourhood_name</th>
+      <th>date_planted</th>
+      <th>diameter</th>
+      <th>street_side_name</th>
+      <th>genus_name</th>
+      <th>assigned</th>
+      <th>...</th>
+      <th>plant_area</th>
+      <th>curb</th>
+      <th>tree_id</th>
+      <th>common_name</th>
+      <th>height_range_id</th>
+      <th>on_street_block</th>
+      <th>cultivar_name</th>
+      <th>root_barrier</th>
+      <th>latitude</th>
+      <th>longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10747</td>
+      <td>W 20TH AV</td>
+      <td>W 20TH AV</td>
+      <td>PLATANOIDES</td>
+      <td>Riley Park</td>
+      <td>2000-02-23</td>
+      <td>28.5</td>
+      <td>EVEN</td>
+      <td>ACER</td>
+      <td>N</td>
+      <td>...</td>
+      <td>15</td>
+      <td>Y</td>
+      <td>21421</td>
+      <td>NORWAY MAPLE</td>
+      <td>4</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>N</td>
+      <td>49.252711</td>
+      <td>-123.106323</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>12573</td>
+      <td>W 18TH AV</td>
+      <td>W 18TH AV</td>
+      <td>CALLERYANA</td>
+      <td>Arbutus-Ridge</td>
+      <td>1992-02-04</td>
+      <td>6.0</td>
+      <td>ODD</td>
+      <td>PYRUS</td>
+      <td>N</td>
+      <td>...</td>
+      <td>7</td>
+      <td>Y</td>
+      <td>129645</td>
+      <td>CHANTICLEER PEAR</td>
+      <td>2</td>
+      <td>2300</td>
+      <td>CHANTICLEER</td>
+      <td>N</td>
+      <td>49.256350</td>
+      <td>-123.158709</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>29676</td>
+      <td>ROSS ST</td>
+      <td>ROSS ST</td>
+      <td>NIGRA</td>
+      <td>Sunset</td>
+      <td>NaT</td>
+      <td>12.0</td>
+      <td>ODD</td>
+      <td>PINUS</td>
+      <td>N</td>
+      <td>...</td>
+      <td>7</td>
+      <td>Y</td>
+      <td>154675</td>
+      <td>AUSTRIAN PINE</td>
+      <td>4</td>
+      <td>7800</td>
+      <td>NaN</td>
+      <td>N</td>
+      <td>49.213486</td>
+      <td>-123.083254</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8856</td>
+      <td>DOMAN ST</td>
+      <td>DOMAN ST</td>
+      <td>AMERICANA</td>
+      <td>Killarney</td>
+      <td>1999-11-12</td>
+      <td>11.0</td>
+      <td>EVEN</td>
+      <td>FRAXINUS</td>
+      <td>N</td>
+      <td>...</td>
+      <td>7</td>
+      <td>Y</td>
+      <td>180803</td>
+      <td>AUTUMN APPLAUSE ASH</td>
+      <td>4</td>
+      <td>6900</td>
+      <td>AUTUMN APPLAUSE</td>
+      <td>N</td>
+      <td>49.220839</td>
+      <td>-123.036721</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>21098</td>
+      <td>EAST BOULEVARD</td>
+      <td>EAST BOULEVARD</td>
+      <td>HIPPOCASTANUM</td>
+      <td>Shaughnessy</td>
+      <td>NaT</td>
+      <td>15.5</td>
+      <td>ODD</td>
+      <td>AESCULUS</td>
+      <td>Y</td>
+      <td>...</td>
+      <td>N</td>
+      <td>Y</td>
+      <td>74364</td>
+      <td>COMMON HORSECHESTNUT</td>
+      <td>4</td>
+      <td>5200</td>
+      <td>NaN</td>
+      <td>N</td>
+      <td>49.238514</td>
+      <td>-123.154958</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get more information about our datasset</span>
+<span class="n">trees_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 5000 entries, 0 to 4999
+Data columns (total 21 columns):
+ #   Column              Non-Null Count  Dtype         
+---  ------              --------------  -----         
+ 0   Unnamed: 0          5000 non-null   int64         
+ 1   std_street          5000 non-null   object        
+ 2   on_street           5000 non-null   object        
+ 3   species_name        5000 non-null   object        
+ 4   neighbourhood_name  5000 non-null   object        
+ 5   date_planted        2363 non-null   datetime64[ns]
+ 6   diameter            5000 non-null   float64       
+ 7   street_side_name    5000 non-null   object        
+ 8   genus_name          5000 non-null   object        
+ 9   assigned            5000 non-null   object        
+ 10  civic_number        5000 non-null   int64         
+ 11  plant_area          4950 non-null   object        
+ 12  curb                5000 non-null   object        
+ 13  tree_id             5000 non-null   int64         
+ 14  common_name         5000 non-null   object        
+ 15  height_range_id     5000 non-null   int64         
+ 16  on_street_block     5000 non-null   int64         
+ 17  cultivar_name       2658 non-null   object        
+ 18  root_barrier        5000 non-null   object        
+ 19  latitude            5000 non-null   float64       
+ 20  longitude           5000 non-null   float64       
+dtypes: datetime64[ns](1), float64(3), int64(5), object(12)
+memory usage: 820.4+ KB
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="questions-of-interest">
+<h1><span class="section-number">2. </span>Questions of Interest<a class="headerlink" href="#questions-of-interest" title="Permalink to this headline">¶</a></h1>
+<p>For this analysis I am interested in how the number and type of trees planted has changed over time. From our initial look at the data, I can see that a lot of values are missing from the ‘date_planted’ column. This could be an error in data recording or it could be that we don’t have records of when older trees were planted. To visualize the gaps in our data, let’s first plot the dates we do have.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># rug plot to visualize date_planted column data</span>
+<span class="n">trees_date</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">trees_df</span><span class="p">)</span><span class="o">.</span><span class="n">mark_tick</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+             <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s2">&quot;date_planted:T&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">())</span>
+             <span class="p">)</span>
+
+<span class="n">trees_date</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-1ce8b37ce5bf4cdc95af804540bb400c"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-1ce8b37ce5bf4cdc95af804540bb400c") {
+      outputDiv = document.getElementById("altair-viz-1ce8b37ce5bf4cdc95af804540bb400c");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "/jupyter/user/772638/proxy/24807/26613ee3deeb98ae0726ee9e75f1f129.json"}, "mark": "tick", "encoding": {"x": {"type": "temporal", "field": "date_planted", "scale": {}}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>It looks like we have continuous data from 1989-2019. If our theory is correct and data without values in the ‘date_planted’ column is from older trees, we could expect these trees to be larger than trees planted more recently. Let’s see if that holds true for our data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># add a boolean column to our datafrom for data_planted data available</span>
+<span class="n">trees_nan</span> <span class="o">=</span> <span class="n">trees_df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">date_record</span> <span class="o">=</span> <span class="n">trees_df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;date_planted&#39;</span><span class="p">])</span>
+<span class="n">trees_nan</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>std_street</th>
+      <th>on_street</th>
+      <th>species_name</th>
+      <th>neighbourhood_name</th>
+      <th>date_planted</th>
+      <th>diameter</th>
+      <th>street_side_name</th>
+      <th>genus_name</th>
+      <th>assigned</th>
+      <th>...</th>
+      <th>curb</th>
+      <th>tree_id</th>
+      <th>common_name</th>
+      <th>height_range_id</th>
+      <th>on_street_block</th>
+      <th>cultivar_name</th>
+      <th>root_barrier</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>date_record</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10747</td>
+      <td>W 20TH AV</td>
+      <td>W 20TH AV</td>
+      <td>PLATANOIDES</td>
+      <td>Riley Park</td>
+      <td>2000-02-23</td>
+      <td>28.5</td>
+      <td>EVEN</td>
+      <td>ACER</td>
+      <td>N</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>21421</td>
+      <td>NORWAY MAPLE</td>
+      <td>4</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>N</td>
+      <td>49.252711</td>
+      <td>-123.106323</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>12573</td>
+      <td>W 18TH AV</td>
+      <td>W 18TH AV</td>
+      <td>CALLERYANA</td>
+      <td>Arbutus-Ridge</td>
+      <td>1992-02-04</td>
+      <td>6.0</td>
+      <td>ODD</td>
+      <td>PYRUS</td>
+      <td>N</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>129645</td>
+      <td>CHANTICLEER PEAR</td>
+      <td>2</td>
+      <td>2300</td>
+      <td>CHANTICLEER</td>
+      <td>N</td>
+      <td>49.256350</td>
+      <td>-123.158709</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>29676</td>
+      <td>ROSS ST</td>
+      <td>ROSS ST</td>
+      <td>NIGRA</td>
+      <td>Sunset</td>
+      <td>NaT</td>
+      <td>12.0</td>
+      <td>ODD</td>
+      <td>PINUS</td>
+      <td>N</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>154675</td>
+      <td>AUSTRIAN PINE</td>
+      <td>4</td>
+      <td>7800</td>
+      <td>NaN</td>
+      <td>N</td>
+      <td>49.213486</td>
+      <td>-123.083254</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8856</td>
+      <td>DOMAN ST</td>
+      <td>DOMAN ST</td>
+      <td>AMERICANA</td>
+      <td>Killarney</td>
+      <td>1999-11-12</td>
+      <td>11.0</td>
+      <td>EVEN</td>
+      <td>FRAXINUS</td>
+      <td>N</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>180803</td>
+      <td>AUTUMN APPLAUSE ASH</td>
+      <td>4</td>
+      <td>6900</td>
+      <td>AUTUMN APPLAUSE</td>
+      <td>N</td>
+      <td>49.220839</td>
+      <td>-123.036721</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>21098</td>
+      <td>EAST BOULEVARD</td>
+      <td>EAST BOULEVARD</td>
+      <td>HIPPOCASTANUM</td>
+      <td>Shaughnessy</td>
+      <td>NaT</td>
+      <td>15.5</td>
+      <td>ODD</td>
+      <td>AESCULUS</td>
+      <td>Y</td>
+      <td>...</td>
+      <td>Y</td>
+      <td>74364</td>
+      <td>COMMON HORSECHESTNUT</td>
+      <td>4</td>
+      <td>5200</td>
+      <td>NaN</td>
+      <td>N</td>
+      <td>49.238514</td>
+      <td>-123.154958</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div></div></div>
+</div>
+<p>To account for differences in species we want to break the records down by species. First let’s see how many species we are working with.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">species</span> <span class="o">=</span> <span class="n">trees_nan</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;species_name&quot;</span><span class="p">)</span>
+<span class="n">species</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="8" halign="left">Unnamed: 0</th>
+      <th colspan="2" halign="left">diameter</th>
+      <th>...</th>
+      <th colspan="2" halign="left">latitude</th>
+      <th colspan="8" halign="left">longitude</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>...</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>species_name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ABIES</th>
+      <td>3.0</td>
+      <td>11484.666667</td>
+      <td>7736.631718</td>
+      <td>4347.0</td>
+      <td>7374.00</td>
+      <td>10401.0</td>
+      <td>15053.5</td>
+      <td>19706.0</td>
+      <td>3.0</td>
+      <td>16.000000</td>
+      <td>...</td>
+      <td>49.251689</td>
+      <td>49.265250</td>
+      <td>3.0</td>
+      <td>-123.139497</td>
+      <td>0.082919</td>
+      <td>-123.191800</td>
+      <td>-123.187300</td>
+      <td>-123.182800</td>
+      <td>-123.113346</td>
+      <td>-123.043891</td>
+    </tr>
+    <tr>
+      <th>ACERIFOLIA   X</th>
+      <td>60.0</td>
+      <td>14736.833333</td>
+      <td>7736.247569</td>
+      <td>1152.0</td>
+      <td>8729.25</td>
+      <td>12926.0</td>
+      <td>21225.0</td>
+      <td>29978.0</td>
+      <td>60.0</td>
+      <td>22.355000</td>
+      <td>...</td>
+      <td>49.263235</td>
+      <td>49.289708</td>
+      <td>60.0</td>
+      <td>-123.117517</td>
+      <td>0.047075</td>
+      <td>-123.198230</td>
+      <td>-123.150238</td>
+      <td>-123.122816</td>
+      <td>-123.078775</td>
+      <td>-123.030066</td>
+    </tr>
+    <tr>
+      <th>ACUTISSIMA</th>
+      <td>19.0</td>
+      <td>16161.631579</td>
+      <td>8395.660984</td>
+      <td>2483.0</td>
+      <td>11159.00</td>
+      <td>16611.0</td>
+      <td>23396.5</td>
+      <td>28798.0</td>
+      <td>19.0</td>
+      <td>11.355263</td>
+      <td>...</td>
+      <td>49.263155</td>
+      <td>49.285991</td>
+      <td>19.0</td>
+      <td>-123.087162</td>
+      <td>0.038076</td>
+      <td>-123.166011</td>
+      <td>-123.113721</td>
+      <td>-123.089016</td>
+      <td>-123.058271</td>
+      <td>-123.028403</td>
+    </tr>
+    <tr>
+      <th>ALNIFOLIA</th>
+      <td>7.0</td>
+      <td>19888.285714</td>
+      <td>6129.725299</td>
+      <td>11189.0</td>
+      <td>15721.50</td>
+      <td>21692.0</td>
+      <td>24053.0</td>
+      <td>26788.0</td>
+      <td>7.0</td>
+      <td>7.642857</td>
+      <td>...</td>
+      <td>49.271948</td>
+      <td>49.290517</td>
+      <td>7.0</td>
+      <td>-123.086372</td>
+      <td>0.052193</td>
+      <td>-123.157361</td>
+      <td>-123.132622</td>
+      <td>-123.055624</td>
+      <td>-123.044008</td>
+      <td>-123.038358</td>
+    </tr>
+    <tr>
+      <th>ALPINUM</th>
+      <td>1.0</td>
+      <td>7160.000000</td>
+      <td>NaN</td>
+      <td>7160.0</td>
+      <td>7160.00</td>
+      <td>7160.0</td>
+      <td>7160.0</td>
+      <td>7160.0</td>
+      <td>1.0</td>
+      <td>8.000000</td>
+      <td>...</td>
+      <td>49.261980</td>
+      <td>49.261980</td>
+      <td>1.0</td>
+      <td>-123.176110</td>
+      <td>NaN</td>
+      <td>-123.176110</td>
+      <td>-123.176110</td>
+      <td>-123.176110</td>
+      <td>-123.176110</td>
+      <td>-123.176110</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>WATERERI  X</th>
+      <td>3.0</td>
+      <td>10674.000000</td>
+      <td>4363.166396</td>
+      <td>7523.0</td>
+      <td>8184.00</td>
+      <td>8845.0</td>
+      <td>12249.5</td>
+      <td>15654.0</td>
+      <td>3.0</td>
+      <td>18.833333</td>
+      <td>...</td>
+      <td>49.247132</td>
+      <td>49.258560</td>
+      <td>3.0</td>
+      <td>-123.137358</td>
+      <td>0.067524</td>
+      <td>-123.209370</td>
+      <td>-123.168305</td>
+      <td>-123.127239</td>
+      <td>-123.101351</td>
+      <td>-123.075464</td>
+    </tr>
+    <tr>
+      <th>X YEDOENSIS</th>
+      <td>90.0</td>
+      <td>16544.900000</td>
+      <td>8492.142408</td>
+      <td>832.0</td>
+      <td>9711.75</td>
+      <td>17409.5</td>
+      <td>22845.5</td>
+      <td>29792.0</td>
+      <td>90.0</td>
+      <td>7.547222</td>
+      <td>...</td>
+      <td>49.256834</td>
+      <td>49.289456</td>
+      <td>90.0</td>
+      <td>-123.117258</td>
+      <td>0.057906</td>
+      <td>-123.220360</td>
+      <td>-123.166355</td>
+      <td>-123.130054</td>
+      <td>-123.058314</td>
+      <td>-123.025868</td>
+    </tr>
+    <tr>
+      <th>XX</th>
+      <td>57.0</td>
+      <td>16790.192982</td>
+      <td>9060.538799</td>
+      <td>397.0</td>
+      <td>8913.00</td>
+      <td>18314.0</td>
+      <td>25920.0</td>
+      <td>29855.0</td>
+      <td>57.0</td>
+      <td>3.504386</td>
+      <td>...</td>
+      <td>49.261244</td>
+      <td>49.289050</td>
+      <td>57.0</td>
+      <td>-123.097158</td>
+      <td>0.050363</td>
+      <td>-123.209720</td>
+      <td>-123.137614</td>
+      <td>-123.088452</td>
+      <td>-123.060023</td>
+      <td>-123.023650</td>
+    </tr>
+    <tr>
+      <th>YUNNANENSIS</th>
+      <td>1.0</td>
+      <td>5188.000000</td>
+      <td>NaN</td>
+      <td>5188.0</td>
+      <td>5188.00</td>
+      <td>5188.0</td>
+      <td>5188.0</td>
+      <td>5188.0</td>
+      <td>1.0</td>
+      <td>10.000000</td>
+      <td>...</td>
+      <td>49.220989</td>
+      <td>49.220989</td>
+      <td>1.0</td>
+      <td>-123.100972</td>
+      <td>NaN</td>
+      <td>-123.100972</td>
+      <td>-123.100972</td>
+      <td>-123.100972</td>
+      <td>-123.100972</td>
+      <td>-123.100972</td>
+    </tr>
+    <tr>
+      <th>ZUMI</th>
+      <td>65.0</td>
+      <td>13045.923077</td>
+      <td>8931.664130</td>
+      <td>33.0</td>
+      <td>5494.00</td>
+      <td>9988.0</td>
+      <td>21052.0</td>
+      <td>29456.0</td>
+      <td>65.0</td>
+      <td>5.203846</td>
+      <td>...</td>
+      <td>49.264133</td>
+      <td>49.285638</td>
+      <td>65.0</td>
+      <td>-123.101302</td>
+      <td>0.058736</td>
+      <td>-123.214080</td>
+      <td>-123.157532</td>
+      <td>-123.082970</td>
+      <td>-123.055951</td>
+      <td>-123.026981</td>
+    </tr>
+  </tbody>
+</table>
+<p>171 rows × 64 columns</p>
+</div></div></div>
+</div>
+<p>171 is a lot of species to visualize all at once. Let’s find our top 10.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#find the 10 most common trees in our dataset</span>
+<span class="n">trees_common</span> <span class="o">=</span> <span class="p">(</span><span class="n">trees_nan</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;common_name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;tree_id&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">trees_common</span> <span class="o">=</span> <span class="n">trees_common</span><span class="p">[</span><span class="s2">&quot;common_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">trees_common</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;KWANZAN FLOWERING CHERRY&#39;,
+ &#39;PISSARD PLUM&#39;,
+ &#39;NORWAY MAPLE&#39;,
+ &#39;CRIMEAN LINDEN&#39;,
+ &#39;PYRAMIDAL EUROPEAN HORNBEAM&#39;,
+ &#39;NIGHT PURPLE LEAF PLUM&#39;,
+ &#39;KOBUS MAGNOLIA&#39;,
+ &#39;AKEBONO FLOWERING CHERRY&#39;,
+ &#39;RED MAPLE&#39;,
+ &#39;KATSURA TREE&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># filter trees_nan to include only the most common trees</span>
+<span class="n">common_records</span> <span class="o">=</span> <span class="n">trees_nan</span><span class="o">.</span><span class="n">common_name</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">trees_common</span><span class="p">)</span>
+<span class="n">trees_nan_small</span> <span class="o">=</span> <span class="n">trees_nan</span><span class="p">[</span><span class="n">common_records</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># chart average tree diameter per species (most common)</span>
+<span class="n">tree_diam</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">trees_nan_small</span><span class="p">)</span><span class="o">.</span><span class="n">mark_boxplot</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+            <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;diameter:Q&#39;</span><span class="p">),</span>
+            <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;common_name:N&#39;</span><span class="p">),</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span><span class="s1">&#39;date_record&#39;</span><span class="p">)</span>
+<span class="n">tree_diam</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-f61c5ca961ec4cceaa27a862c8f12351"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-f61c5ca961ec4cceaa27a862c8f12351") {
+      outputDiv = document.getElementById("altair-viz-f61c5ca961ec4cceaa27a862c8f12351");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "/jupyter/user/772638/proxy/24807/a19c0c937e2b9eceaa974e215a2c3665.json"}, "facet": {"type": "nominal", "field": "date_record"}, "spec": {"mark": "boxplot", "encoding": {"x": {"type": "quantitative", "field": "diameter"}, "y": {"type": "nominal", "field": "common_name"}}, "width": 300}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>As we can see from the chart above, trees without a date record do have a higher median diameter than trees with a date record. Our theory that trees without date records are older seems be correct, we will exclude these values from future plots regarding date. To make analysis easier, I will add a column with just the year planted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove entries with no date_planted</span>
+<span class="n">trees_small</span> <span class="o">=</span> <span class="n">trees_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date_planted&#39;</span><span class="p">])</span>
+<span class="c1"># create a new column with just year </span>
+<span class="n">trees_small</span> <span class="o">=</span> <span class="n">trees_small</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">year_planted</span> <span class="o">=</span> <span class="n">trees_small</span><span class="p">[</span><span class="s1">&#39;date_planted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># number of trees planted over time</span>
+<span class="n">trees_time</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">trees_small</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+             <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;year_planted:O&#39;</span><span class="p">),</span>
+             <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;count()&#39;</span><span class="p">))</span>
+<span class="n">trees_time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-dfae800401d74093a50933e24a78ef67"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-dfae800401d74093a50933e24a78ef67") {
+      outputDiv = document.getElementById("altair-viz-dfae800401d74093a50933e24a78ef67");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "/jupyter/user/772638/proxy/24807/8642324cb0010ce007685874c19ba5fc.json"}, "mark": "bar", "encoding": {"x": {"type": "ordinal", "field": "year_planted"}, "y": {"type": "quantitative", "aggregate": "count"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>Let’s make this chart clickable so we can filter our top 10 tree species by year.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">click_year</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_multi</span><span class="p">(</span><span class="n">encodings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;click&#39;</span><span class="p">)</span>
+<span class="n">click_trees_year</span> <span class="o">=</span> <span class="p">(</span><span class="n">trees_time</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+                   <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">click_year</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)))</span>
+                  <span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">click_year</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select 10 most common trees based on year</span>
+<span class="n">species_select</span> <span class="o">=</span> <span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">trees_small</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="n">click_year</span><span class="p">)</span><span class="o">.</span><span class="n">mark_bar</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+                    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;species_name:N&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">),</span>
+                    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;species_count:Q&#39;</span><span class="p">),</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">transform_aggregate</span><span class="p">(</span>
+                    <span class="n">species_count</span><span class="o">=</span><span class="s2">&quot;count()&quot;</span><span class="p">,</span>
+                    <span class="n">groupby</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;species_name&quot;</span><span class="p">]</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">transform_window</span><span class="p">(</span>
+                    <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;rank(species_count)&#39;</span><span class="p">,</span>
+                    <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="n">alt</span><span class="o">.</span><span class="n">SortField</span><span class="p">(</span><span class="s2">&quot;species_count&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;descending&quot;</span><span class="p">)]</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">((</span><span class="n">alt</span><span class="o">.</span><span class="n">datum</span><span class="o">.</span><span class="n">rank</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">click_year</span><span class="p">))</span>
+<span class="n">species_select</span> <span class="o">&amp;</span> <span class="n">click_trees_year</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-fb7f1ff6a43d4da4ac033a3173e3a48b"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-fb7f1ff6a43d4da4ac033a3173e3a48b") {
+      outputDiv = document.getElementById("altair-viz-fb7f1ff6a43d4da4ac033a3173e3a48b");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "vconcat": [{"mark": "bar", "encoding": {"x": {"type": "quantitative", "field": "species_count"}, "y": {"type": "nominal", "field": "species_name", "sort": "x"}}, "selection": {"selector001": {"type": "multi", "encodings": ["x"], "on": "click"}}, "transform": [{"filter": {"selection": "selector001"}}, {"aggregate": [{"op": "count", "as": "species_count"}], "groupby": ["species_name"]}, {"window": [{"op": "rank", "field": "species_count", "as": "rank"}], "sort": [{"field": "species_count", "order": "descending"}]}, {"filter": "(datum.rank <= 10)"}]}, {"mark": "bar", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector001"}, "value": 0.5}, "x": {"type": "ordinal", "field": "year_planted"}, "y": {"type": "quantitative", "aggregate": "count"}}, "height": 100, "selection": {"selector001": {"type": "multi", "encodings": ["x"], "on": "click"}}, "width": 500}], "data": {"url": "/jupyter/user/772638/proxy/24807/8642324cb0010ce007685874c19ba5fc.json"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>Interesting, there is less overlap in the top 10 species per year than I thought there would be. Now, I would like to look more at the size of trees. I wonder how the method of planting affcts a trees size. To visualize I will use our top 10 datasubset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tree diameter vs height colored by species</span>
+<span class="n">tree_height</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">trees_nan_small</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+              <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;diameter:Q&#39;</span><span class="p">),</span>
+              <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;height_range_id:Q&#39;</span><span class="p">),</span>
+              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;species_name:N&#39;</span>
+              <span class="p">)</span>
+<span class="n">tree_height</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-6423c7c9d05a4419ad5f288b5852bd91"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-6423c7c9d05a4419ad5f288b5852bd91") {
+      outputDiv = document.getElementById("altair-viz-6423c7c9d05a4419ad5f288b5852bd91");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "/jupyter/user/772638/proxy/24807/a19c0c937e2b9eceaa974e215a2c3665.json"}, "mark": "circle", "encoding": {"color": {"type": "nominal", "field": "species_name"}, "x": {"type": "quantitative", "field": "diameter"}, "y": {"type": "quantitative", "field": "height_range_id"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># facet our size chart by root barrier</span>
+<span class="n">tree_height</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span><span class="s1">&#39;root_barrier:N&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-3d2fac387cc54bf3a335b81a6f218b03"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-3d2fac387cc54bf3a335b81a6f218b03") {
+      outputDiv = document.getElementById("altair-viz-3d2fac387cc54bf3a335b81a6f218b03");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "/jupyter/user/772638/proxy/24807/a19c0c937e2b9eceaa974e215a2c3665.json"}, "facet": {"type": "nominal", "field": "root_barrier"}, "spec": {"mark": "circle", "encoding": {"color": {"type": "nominal", "field": "species_name"}, "x": {"type": "quantitative", "field": "diameter"}, "y": {"type": "quantitative", "field": "height_range_id"}}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># facet tree size by side of street</span>
+<span class="n">tree_side</span> <span class="o">=</span> <span class="n">tree_height</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span><span class="s1">&#39;street_side_name&#39;</span><span class="p">)</span>
+<span class="n">tree_side</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-82c8dcfe677e4d54a1c90e25875c6d04"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-82c8dcfe677e4d54a1c90e25875c6d04") {
+      outputDiv = document.getElementById("altair-viz-82c8dcfe677e4d54a1c90e25875c6d04");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "/jupyter/user/772638/proxy/24807/a19c0c937e2b9eceaa974e215a2c3665.json"}, "facet": {"type": "nominal", "field": "street_side_name"}, "spec": {"mark": "circle", "encoding": {"color": {"type": "nominal", "field": "species_name"}, "x": {"type": "quantitative", "field": "diameter"}, "y": {"type": "quantitative", "field": "height_range_id"}}, "width": 200}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>It looks like the side of the street trees are planted on makes no difference to size however, trees planted with a root barrier do seem to be smaller. Let’s see if the trees with root barriers are younger than those without using our full dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root_barrier</span> <span class="o">=</span> <span class="n">trees_time</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;root_barrier:N&quot;</span><span class="p">)</span>
+<span class="n">root_barrier</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-847c6bbf8f0e42caad71dbdcfe1b75a7"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-847c6bbf8f0e42caad71dbdcfe1b75a7") {
+      outputDiv = document.getElementById("altair-viz-847c6bbf8f0e42caad71dbdcfe1b75a7");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "/jupyter/user/772638/proxy/24807/8642324cb0010ce007685874c19ba5fc.json"}, "mark": "bar", "encoding": {"color": {"type": "nominal", "field": "root_barrier"}, "x": {"type": "ordinal", "field": "year_planted"}, "y": {"type": "quantitative", "aggregate": "count"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>It looks like most of the trees with root barriers were planted between 2004 and 2009. Let’s filter our data to include just those years and see if the pattern still holds.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree_height_filter</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">trees_small</span><span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span>
+                   <span class="n">alt</span><span class="o">.</span><span class="n">FieldRangePredicate</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;year_planted&#39;</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">2004</span><span class="p">,</span> <span class="mi">2009</span><span class="p">])</span>
+                   <span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+                   <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">&#39;diameter:Q&#39;</span><span class="p">),</span>
+                   <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">&#39;height_range_id:Q&#39;</span><span class="p">)</span>
+                   <span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="o">.</span><span class="n">facet</span><span class="p">(</span><span class="s1">&#39;root_barrier:N&#39;</span><span class="p">)</span>
+<span class="n">tree_height_filter</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-ffabbb8933fe4efaa0474a5f80d6f555"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-ffabbb8933fe4efaa0474a5f80d6f555") {
+      outputDiv = document.getElementById("altair-viz-ffabbb8933fe4efaa0474a5f80d6f555");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "/jupyter/user/772638/proxy/24807/8642324cb0010ce007685874c19ba5fc.json"}, "facet": {"type": "nominal", "field": "root_barrier"}, "spec": {"mark": "circle", "encoding": {"x": {"type": "quantitative", "field": "diameter"}, "y": {"type": "quantitative", "field": "height_range_id"}}, "transform": [{"filter": {"field": "year_planted", "range": [2004, 2009]}}], "width": 300}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>When we filter just for years that used root barriers the size difference is much less pronounced. Our initial observations about root barriers could have been because a smaller percentage of the data used root barriers.</p>
+<p>Now, lets see how the trees are distributed over Vancouver.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load data to make a map of vancouver (code provided)</span>
+<span class="n">url_geojson</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/UBC-MDS/exploratory-data-viz/main/data/local-area-boundary.geojson&#39;</span>
+<span class="n">data_geojson_remote</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url_geojson</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">DataFormat</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s1">&#39;features&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">))</span>
+<span class="n">data_geojson_remote</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data({
+  format: DataFormat({
+    property: &#39;features&#39;,
+    type: &#39;json&#39;
+  }),
+  url: &#39;https://raw.githubusercontent.com/UBC-MDS/exploratory-data-viz/main/data/local-area-boundary.geojson&#39;
+})
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># base map of Vancouver (code provided)</span>
+<span class="n">vancouver_map</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">data_geojson_remote</span><span class="p">)</span><span class="o">.</span><span class="n">mark_geoshape</span><span class="p">(</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">stroke</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+<span class="p">)</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">reflectY</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">vancouver_map</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-33ac9054d81b464b866df6c99a2b4cec"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-33ac9054d81b464b866df6c99a2b4cec") {
+      outputDiv = document.getElementById("altair-viz-33ac9054d81b464b866df6c99a2b4cec");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://raw.githubusercontent.com/UBC-MDS/exploratory-data-viz/main/data/local-area-boundary.geojson", "format": {"property": "features", "type": "json"}}, "mark": {"type": "geoshape", "color": "white", "opacity": 0.5, "stroke": "black"}, "encoding": {}, "projection": {"reflectY": true, "type": "identity"}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Map location of all trees in Vancouver</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">trees_small</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+         <span class="n">longitude</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span>
+         <span class="n">latitude</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span>
+         <span class="p">)</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span> <span class="s1">&#39;identity&#39;</span><span class="p">,</span> <span class="n">reflectY</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">point_map</span> <span class="o">=</span> <span class="p">(</span><span class="n">vancouver_map</span> <span class="o">+</span> <span class="n">points</span><span class="p">)</span>
+<span class="n">point_map</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-dc23042d029e4d2d8af0b146b7c4d1e2"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-dc23042d029e4d2d8af0b146b7c4d1e2") {
+      outputDiv = document.getElementById("altair-viz-dc23042d029e4d2d8af0b146b7c4d1e2");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"data": {"url": "https://raw.githubusercontent.com/UBC-MDS/exploratory-data-viz/main/data/local-area-boundary.geojson", "format": {"property": "features", "type": "json"}}, "mark": {"type": "geoshape", "color": "white", "opacity": 0.5, "stroke": "black"}, "encoding": {}, "projection": {"reflectY": true, "type": "identity"}}, {"data": {"url": "/jupyter/user/772638/proxy/24807/8642324cb0010ce007685874c19ba5fc.json"}, "mark": {"type": "circle", "size": 20}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}}, "projection": {"reflectY": true, "type": "identity"}}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>To see how the distribution changes over time I am going to use the clickable year chart we made earlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_map</span> <span class="o">=</span> <span class="n">point_map</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+                <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">click_year</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)),</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;species_name:N&quot;</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">click_year</span><span class="p">)</span>
+<span class="n">point_map</span> <span class="o">&amp;</span> <span class="n">click_trees_year</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div id="altair-viz-d17c9c6a6e3b4b449248995e7c6682f7"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-d17c9c6a6e3b4b449248995e7c6682f7") {
+      outputDiv = document.getElementById("altair-viz-d17c9c6a6e3b4b449248995e7c6682f7");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "vconcat": [{"layer": [{"data": {"url": "https://raw.githubusercontent.com/UBC-MDS/exploratory-data-viz/main/data/local-area-boundary.geojson", "format": {"property": "features", "type": "json"}}, "mark": {"type": "geoshape", "color": "white", "opacity": 0.5, "stroke": "black"}, "encoding": {}, "projection": {"reflectY": true, "type": "identity"}, "selection": {"selector001": {"type": "multi", "encodings": ["x"], "on": "click"}}}, {"data": {"url": "/jupyter/user/772638/proxy/24807/8642324cb0010ce007685874c19ba5fc.json"}, "mark": {"type": "circle", "size": 20}, "encoding": {"latitude": {"field": "latitude", "type": "quantitative"}, "longitude": {"field": "longitude", "type": "quantitative"}}, "projection": {"reflectY": true, "type": "identity"}}], "encoding": {"color": {"type": "nominal", "field": "species_name"}, "opacity": {"condition": {"value": 1, "selection": "selector001"}, "value": 0.1}}}, {"data": {"url": "/jupyter/user/772638/proxy/24807/8642324cb0010ce007685874c19ba5fc.json"}, "mark": "bar", "encoding": {"opacity": {"condition": {"value": 1, "selection": "selector001"}, "value": 0.5}, "x": {"type": "ordinal", "field": "year_planted"}, "y": {"type": "quantitative", "aggregate": "count"}}, "height": 100, "selection": {"selector001": {"type": "multi", "encodings": ["x"], "on": "click"}}, "width": 500}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+</script></div></div>
+</div>
+<p>Interesting, over the years the distribution seems to be spread out evenly. I would have guessed that the street tree program would have started in a few neighbourhoods and branched out from there. There also doesn’t seem to be any clusters of particular species in neighbourhoods but it is hard to tell with so many species to consider. For the analysis report I think it will be interesting to explore the distribution of species planted over time and space using both time charts and a map. Linking our top 10 species per year chart will make the species distribution much easier to visualize. I am also very interested in our findings about the size of trees and root barriers so I will include those in our report as well.</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./DataViz"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Welcome to Sarah’s Jupyter Book!</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="final_project_report.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Variety of Vancouver Street Trees</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Sarah McDonald<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
