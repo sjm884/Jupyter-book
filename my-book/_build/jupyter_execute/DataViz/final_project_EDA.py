@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## Exploratory Data Analysis of The Vancouver Street Trees Data
+# ## Exploratory Data Analysis of The Vancouver Street Trees Dataset
 # 
 # This report was prepared by Sarah McDonald on December 12, 2021, as the final project for a Data Visualization class at the University of British Columbia using a [subset](https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv) of the Vancouver Street Trees Data {cite}`vancouvertrees` provided.
 # 
@@ -21,6 +21,8 @@ import altair as alt
 import json
 
 
+# pandas {cite}`The_pandas_development_team_pandas-dev_pandas_Pandas` is used to handle data, altair {cite}`altair` is a package used for graphing, and json {cite}`Lohmann_JSON_for_Modern_2022` is used to [create maps.](city-map)
+
 # In[2]:
 
 
@@ -37,7 +39,7 @@ trees_df.head()
 trees_df.info()
 
 
-# # Questions of Interest
+# ## Questions of Interest
 # For this analysis I am interested in how the number and type of trees planted has changed over time. From our initial look at the data, I can see that a lot of values are missing from the 'date_planted' column. This could be an error in data recording or it could be that we don't have records of when older trees were planted. To visualize the gaps in our data, let's first plot the dates we do have.
 
 # In[4]:
@@ -52,6 +54,14 @@ trees_date
 
 
 # It looks like we have continuous data from 1989-2019. If our theory is correct and data without values in the ‘date_planted’ column is from older trees, we could expect these trees to be larger than trees planted more recently. Let’s see if that holds true for our data. 
+# 
+# To make the data easier to filter I will use the pandas {cite}`The_pandas_development_team_pandas-dev_pandas_Pandas` package to add a new column to our data frame. A simple boolean will let us see if the date planted is availabe for that entry. 
+# 
+# ```python
+# {
+#     trees_nan = trees_df.assign(date_record = trees_df.isna().loc[:,'date_planted'])
+# }
+# ```
 
 # In[5]:
 
@@ -70,7 +80,17 @@ species = trees_nan.groupby("species_name")
 species.describe()
 
 
-# 171 is a lot of species to visualize all at once. Let's find our top 10.
+# (top-10)=
+# ## Top 10
+# 171 is a lot of species to visualize all at once. Let's find our top 10 using the pandas package {cite}`The_pandas_development_team_pandas-dev_pandas_Pandas` to group entries by their common name, count those entries, and sort from most to least common. Then we can filter so we see only the first 10 entries, the 10 most common trees planted!
+# 
+# ```python
+# {
+#     trees_common = (trees_nan.groupby("common_name").count().sort_values(by='tree_id', ascending=False
+#                     ).reset_index().loc[0:9])
+# 
+# }
+# ```
 
 # In[7]:
 
@@ -101,7 +121,13 @@ tree_diam = alt.Chart(trees_nan_small).mark_boxplot().encode(
 tree_diam
 
 
-# As we can see from the chart above, trees without a date record do have a higher median diameter than trees with a date record. Our theory that trees without date records are older seems be correct, we will exclude these values from future plots regarding date. To make analysis easier, I will add a column with just the year planted.
+# As we can see from the chart above, trees without a date record do have a higher median diameter than trees with a date record. Trees increase in circumference as they age, a general formula for estimating the age of a trees is the diameter of the tree multiplied by a growth factor specific to the species.{cite}`Lukaszkiewicz2008`  
+# 
+# $$
+#   age \approx \frac{C}{\pi} \times G
+# $$
+# 
+# Our theory that trees without date records are older seems be correct, we will exclude these values from future plots regarding date. To make analysis easier, I will add a column with just the year planted.
 
 # In[10]:
 
@@ -122,6 +148,8 @@ trees_time = alt.Chart(trees_small).mark_bar().encode(
 trees_time
 
 
+# (click-filter)=
+# ## Click to filter
 # Let's make this chart clickable so we can filter our top 10 tree species by year. 
 
 # In[12]:
@@ -151,7 +179,7 @@ species_select = (alt.Chart(trees_small).transform_filter(click_year).mark_bar()
 species_select & click_trees_year
 
 
-# Interesting, there is less overlap in the top 10 species per year than I thought there would be. Now, I would like to look more at the size of trees. I wonder how the method of planting affcts a trees size. To visualize I will use our top 10 datasubset.
+# Interesting, there is less overlap in the top 10 species per year than I thought there would be. Now, I would like to look more at the size of trees. I wonder how the method of planting affects a tree's size. To visualize I will use our [top 10 data subset](Top-10).
 
 # In[14]:
 
@@ -180,6 +208,8 @@ tree_side = tree_height.properties(width=200).facet('street_side_name')
 tree_side
 
 
+# (root-barriers)=
+# ## Barriers to barriers
 # It looks like the side of the street trees are planted on makes no difference to size however, trees planted with a root barrier do seem to be smaller. Let's see if the trees with root barriers are younger than those without using our full dataset.
 # 
 #  ```{figure} root-barrier.jpg
@@ -210,9 +240,9 @@ tree_height_filter = alt.Chart(trees_small).transform_filter(
 tree_height_filter
 
 
-# When we filter just for years that used root barriers the size difference is much less pronounced. Our initial observations about root barriers could have been because a smaller percentage of the data used root barriers.
+# When we filter just for years that used root barriers the size difference is much less pronounced. Our initial observations about [root barriers](root-barriers) could have been because a smaller percentage of the data used root barriers.
 # 
-# Now, lets see how the trees are distributed over Vancouver.
+# Now, lets see how the trees are distributed over Vancouver. As part of this course code was provided to create a base [map of Vancouver.](city-map)
 
 # In[19]:
 
@@ -247,7 +277,7 @@ point_map = (vancouver_map + points)
 point_map
 
 
-# To see how the distribution changes over time I am going to use the clickable year chart we made earlier.
+# To see how the distribution changes over time I am going to use the [clickable year chart](click-filter) we made earlier.
 
 # In[22]:
 
@@ -259,7 +289,11 @@ point_map = point_map.encode(
 point_map & click_trees_year
 
 
-# Interesting, over the years the distribution seems to be spread out evenly. I would have guessed that the street tree program would have started in a few neighbourhoods and branched out from there. There also doesn't seem to be any clusters of particular species in neighbourhoods but it is hard to tell with so many species to consider. For the analysis report I think it will be interesting to explore the distribution of species planted over time and space using both time charts and a map. Linking our top 10 species per year chart will make the species distribution much easier to visualize. I am also very interested in our findings about the size of trees and root barriers so I will include those in our report as well.
+# ## Conclusion
+# Interesting, over the years the distribution seems to be spread out evenly. I would have guessed that the street tree program would have started in a few neighbourhoods and branched out from there. There also doesn't seem to be any clusters of particular species in neighbourhoods but it is hard to tell with so many species to consider. For the analysis report I think it will be interesting to explore the distribution of species planted over time and space using both time charts and a map. Linking our [top 10 species per year chart](top-10) will make the species distribution much easier to visualize. I am also very interested in our findings about the size of trees and [root barriers](root-barriers) so I will include those in our report as well.
+# 
+# ```{bibliography} references.bib
+# ```
 
 # In[ ]:
 

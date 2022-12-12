@@ -17,8 +17,8 @@ The Vancouver Street Trees Dataset has been downloaded over 5000 times!
 ```{note}
 You can find the Vancouver Street Trees dataset in the City of Vancouver's Open Data Portal.
 ```
-(content:references:labels)= 
-## City Map
+ 
+(city-map)= ## City Map
 As part of this project, the folowing code was provided to allow us to visualize the distribution of these street trees on a map of Vancouver.
 ```{note}
 You can find 4 different world projections from vega_datasets
@@ -40,4 +40,3 @@ Then, using the python package altair {cite}'altair' to creae a base map of Vanc
 
     vancouver_map
 }
-```
