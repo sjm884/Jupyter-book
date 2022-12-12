@@ -17,12 +17,13 @@ The Vancouver Street Trees Dataset has been downloaded over 5000 times!
 ```{note}
 You can find the Vancouver Street Trees dataset in the City of Vancouver's Open Data Portal.
 ```
+(content:references:labels)= 
 ## City Map
 As part of this project, the folowing code was provided to allow us to visualize the distribution of these street trees on a map of Vancouver.
 ```{note}
 You can find 4 different world projections from vega_datasets
 ```
-First, loading a *.geojson* with the coordinates of vancouver.
+First, loading a *.geojson* using JSON libraries {cite}'Lohmann_JSON_for_Modern_2022' with the coordinates of vancouver.
 ```python
 {
     url_geojson = 'https://raw.githubusercontent.com/UBC-MDS/exploratory-data-viz/main/data/local-area-boundary.geojson'
@@ -30,7 +31,7 @@ First, loading a *.geojson* with the coordinates of vancouver.
     data_geojson_remote
 }
 ```
-Then, using the python package altair to creae a base map of Vancouver using the coordinates we loaded in. 
+Then, using the python package altair {cite}'altair' to creae a base map of Vancouver using the coordinates we loaded in. 
 ```python
 {
     vancouver_map = alt.Chart(data_geojson_remote).mark_geoshape(
