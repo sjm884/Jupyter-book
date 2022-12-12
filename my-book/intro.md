@@ -1,11 +1,8 @@
 # Welcome to Sarah's Jupyter Book!
 This book was prepared for Assignment 8 of the *Data science tool box* course at the University of British Columbia. 
 
-```{figure} UBC_logo.png
- ---
-  height: 200px
- width: 150px
- name: UBC_logo
+```{figure} images/UBC_logo.png
+The UBC Logo
  ---
  ```
 ## Content
@@ -13,9 +10,7 @@ To create this book, I will be using my final project from the *Data Visualizati
 ```{margin} Did you know?
 The Vancouver Street Trees Dataset has been downloaded over 5000 times!
 ```
-```{figure} images/vancouver.jpeg
- ---
- name: vancouver
+```{figure} images/vancouver.jpg
  ---
  The City of Vancouver
  ```
@@ -27,7 +22,7 @@ As part of this project, the folowing code was provided to allow us to visualize
 ```{note}
 You can find 4 different world projections from vega_datasets
 ```
-First, loading a *.geojson* file to make a map of vancouver
+First, loading a *.geojson* with the coordinates of vancouver.
 ```python
 {
     url_geojson = 'https://raw.githubusercontent.com/UBC-MDS/exploratory-data-viz/main/data/local-area-boundary.geojson'
@@ -35,7 +30,7 @@ First, loading a *.geojson* file to make a map of vancouver
     data_geojson_remote
 }
 ```
-Then, creating a base map of Vancouver onto which we can overlay our code. 
+Then, using the python package altair to creae a base map of Vancouver using the coordinates we loaded in. 
 ```python
 {
     vancouver_map = alt.Chart(data_geojson_remote).mark_geoshape(
