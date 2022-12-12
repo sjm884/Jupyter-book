@@ -3,7 +3,12 @@
 
 format: jb-book
 root: intro
+parts:
+  - caption: Data Visualization
+    numbered: True
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+- file: DataViz/final_project_EDA.ipynb
+    title: Vancouver Street Trees EDA
+-file: DataViz/final_project_report.ipynb
+    tile: Vancouver Street Trees Report
+
