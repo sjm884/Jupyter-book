@@ -2,8 +2,11 @@
 format: jb-book
 root: intro
 parts:
-  - caption: Data Visulization
-    numbered: True  # Only applies to chapters in Part 1.
+  - caption: Exploratory Data Analysis
+    numbered: True
     chapters:
     - file: DataViz/final_project_EDA.ipynb
+  - caption: Final Report
+    numbered: True
+    chapters:
     - file: DataViz/final_project_report.ipynb
