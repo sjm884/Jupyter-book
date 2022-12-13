@@ -10,7 +10,6 @@ parts:
     numbered: True
     chapters:
     - file: DataViz/final_project_report.ipynb
-    - caption: Final Report
-    numbered: True
+  - caption: Conclusion
     chapters:
     - file: conclusion.md

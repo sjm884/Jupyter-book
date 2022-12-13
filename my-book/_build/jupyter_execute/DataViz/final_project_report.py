@@ -3,10 +3,17 @@
 
 # # Variety of Vancouver Street Trees
 # 
-# This report was prepared by Sarah McDonald on December 15, 2021, as the final project for a Data Visualization class at the University of British Columbia using a [subset](https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv) of the [Vancouver Street Trees](https://opendata.vancouver.ca/explore/dataset/street-trees/information/?disjunctive.species_name&disjunctive.common_name&disjunctive.height_range_id) dataset.
+# This report was prepared by Sarah McDonald on December 15, 2021, as the final project for a Data Visualization class at the University of British Columbia using a [subset](https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv) of the Vancouver Street Trees dataset.{cite}`vancouvertrees`
 
 # ## Introduction
 # Vancouver is a beautiful city. A big part of the appeal is how the natural landscape has been incorporated into the cityscape. In this report I will examine how the variety, density, and number of street trees in Vancouver has changed over time.
+# 
+#  ```{figure} images/van.jpg
+#  ---
+#  name: ariel-van
+#  ---
+#  An ariel view of Vancouver
+#  ```
 
 # ## Analysis
 
@@ -17,6 +24,7 @@
 import pandas as pd
 import altair as alt
 import json
+from myst_nb import glue
 #alt.data_transformers.enable("data_server")
 
 # Load in the data
@@ -88,7 +96,7 @@ print("\n")
 trees_df.describe()
 
 
-# For this analysis, I am interested in how the number and type of street trees planted in Vancouver has changed over time. From our initial look at the data, we can see that a lot of values are missing from the 'date_planted' column. This could be an error in data recording or it could be that we don't have records of when older trees were planted. In my exploratory analysis, I found that we have continuous data from 1989-2019. For this report, we will exclude data where the date planted is not available. To simplify the analysis I will only include the year when plotting the date planted. 
+# For this analysis, I am interested in how the number and type of street trees planted in Vancouver has changed over time. From our initial look at the data, we can see that a lot of values are missing from the 'date_planted' column. This could be an error in data recording or it could be that we don't have records of when older trees were planted. In my [exploratory analysis](final_project_EDA.ipynb), I found that we have continuous data from 1989-2019. For this report, we will exclude data where the date planted is not available. To simplify the analysis I will only include the year when plotting the date planted. 
 
 # In[3]:
 
@@ -109,10 +117,15 @@ trees_small = trees_small.assign(year_planted = trees_small['date_planted'].dt.y
 trees_time = alt.Chart(trees_small).mark_bar(color='darkgray').encode(
              alt.X('year_planted:O', title="Year Planted"),
              alt.Y('count()', title="Number of Trees"))
-trees_time.properties(title = "Fig 1. Number of Vancouver Street Trees Planted Over Time")
+glue("trees_time", trees_time, display=False)
 
 
-# From figure 1, we can see that the number of trees planted over the years has varied, with the largest spikes around 1996, 2002, and 2013. Now, let's see how the species planted has changed over time. Our dataset contains 171 different species so, we will break this down to the top 10 of each year.
+# ```{glue:figure} trees_time
+# :name: = trees_time
+# "Number of Vancouver Street Trees Planted Over Time"
+# ```
+
+# From {numref}`trees_time`, we can see that the number of trees planted over the years has varied, with the largest spikes around 1996, 2002, and 2013. Now, let's see how the species planted has changed over time. Our dataset contains 171 different species so, we will break this down to the top 10 of each year.
 
 # In[5]:
 
@@ -137,17 +150,27 @@ species_select = (alt.Chart(trees_small).transform_filter(click_year).mark_bar()
                     sort=[alt.SortField("species_count", order="descending")]
                     ).transform_filter((alt.datum.rank <= 10)
                     ).add_selection(click_year).properties(height=250))
-(species_select & click_trees_year).properties(
-    title={'text': ["Fig 2. Top 10 Vancouver Street Tree Species Planted Per Year"],
-            'subtitle': ["Click on a bar to filter by year."]}
-    ).configure_title(anchor='middle')
+(species_select & click_trees_year)
+glue("species_select",species_select, display=False)
 
+
+# ```{glue:figure} species_select
+# :name: = species_select
+# "Top 10 Vancouver Street Tree Species Planted Per Year"
+# ```
 
 # Interesting, while there has been a wide variety of species chosen over the years it looks like some species, such as Platanoides, have remained popular. This is a species of maple not native to BC. Now, I would like to examine tree growth. 
+#  ```{figure} images/platanoides.jpg
+#  ---
+#  name: platanoides
+#  ---
+# Platanoides, a species of maple. 
+#  ```
+# 
 
 # ### Question 2: Has the method of planting affected the growth of the trees?
 
-# While we do have specific information about where each tree was planted, I am most interested in planting methods that cover or restrict the roots. A healthy root system is essential to tree growth, my hypothesis is that planting trees with a root barrier will stunt the growth of the tree. To measure growth, we have both diameter and height.
+# While we do have specific information about where each tree was planted, I am most interested in planting methods that cover or restrict the roots. A healthy root system is essential to tree growth, my hypothesis is that planting trees with a [root barrier](root-barriers) will stunt the growth of the tree. To measure growth, we have both diameter and height. Diameter can be used to estimate the [age of a tree](age-est)
 
 # In[6]:
 
@@ -165,12 +188,17 @@ size_chart = (alt.Chart(trees_small).transform_filter(click_year).mark_circle().
                     .properties(height=200, width=250))
 
 # Make chart selectabe with year chart
-(size_chart & click_trees_year).properties(title={'text': ["Fig 3. Tree Growth Stunted by Root Barriers"],
-                                              'subtitle': ["Click on a bar to filter by year."]}
-                                              ).configure_title(anchor='middle')
+size_click = (size_chart & click_trees_year)
+glue("size_click", size_click, display=False)
 
 
-# Figure 3 does seem to suggest size difference between trees that were planted with and without root barriers however, it is hard to tell given how little data we have on trees planted with root barriers. Perhaps it is a good thing they fell out of fashion. We can see from the chart that planting with a root barrier was most popular between 2004 and 2009. Now, I would like to see the distribution of trees planted throughout Vancouver. The code for creating the map of Vancouver was provided as part of this assignment
+# ```{glue:figure} size_click
+# :name: = size_click
+# "Tree Growth Stunted by Root Barriers, Click on a bar to filter by year"
+# ```
+# 
+
+# {numref}`size_click` does seem to suggest size difference between trees that were planted with and without root barriers however, it is hard to tell given how little data we have on trees planted with root barriers. Perhaps it is a good thing they fell out of fashion. We can see from the chart that planting with a root barrier was most popular between 2004 and 2009. Now, I would like to see the distribution of trees planted throughout Vancouver. The code for creating the map of Vancouver was provided as part of this assignment
 # 
 # ### Question 3: How has the distribution of trees around Vancouver changed over time?
 
@@ -196,16 +224,20 @@ point_map = (vancouver_map + points).add_selection(click_year).encode(
             opacity=alt.condition(click_year, alt.value(1), alt.value(0.05)))
 #add year chart to filter data
 click_trees_year = click_trees_year.encode(color=alt.value('darkgray'))
-(point_map & click_trees_year).properties(title={'text': ["Fig 4. Location of Vancouver Street Trees"],
-                                              'subtitle': ["Click on a bar to filter by year."]}
-                                              ).configure_title(anchor='middle')
+point_click_year = (point_map & click_trees_year)
+glue("point_click_year",point_click_year, display=False)
 
+
+# ```{glue:figure} point_click_year
+# :name: = point_click_year
+# "Location of Vancouver Street Trees. Click on a bar to filter by year."
+# ```
 
 # It is interesting to see that the Vancouver Street Trees were planted evenly throughout the city over the years rather than starting in one neigbourhood and expanding from there.
 # 
 # ## Discussion
 # 
-# Vancouver street trees have been beautifying the city for decades. We have data about when trees were planted, location, size, and planting methods from 1989 to 2019. As we saw in figure 1, the distribution of trees planted has been fairly consistent over the years with spikes around 1998, 2002, and 2013. Between 1989 and 2019, 171 different species of trees were planted in Vancouver. We saw in figure 2 that the top 10 species planted each year has varied greatly over the years with Rubrum, Plantanoids, and Zumi making frequent appearances in the top 10. I think it would be interesting to explore more about the species chosen, I wonder how many of these are native species. In the beginning of this analysis, I was interested in how the planting method might affect growth of the trees. Figure 3 showed that there is a much smaller difference between the size of trees planted with and without a root barrier than I theorized. However, we also saw that root barrier planting methods were only popular between 2004 and 2009 so, we don’t have enough data to draw any hard conclusions about the effects of root barrier planting on tree size. Finally, in figure 4 we saw that the distribution of trees across Vancouver has been consistent over the years, rather than growing out from a few neighbourhoods. I think we can all apricate the biodiversity that makes our city unique. 
+# Vancouver street trees have been beautifying the city for decades. We have data about when trees were planted, location, size, and planting methods from 1989 to 2019. As we saw in {numref}`trees_time`, the distribution of trees planted has been fairly consistent over the years with spikes around 1998, 2002, and 2013. Between 1989 and 2019, 171 different species of trees were planted in Vancouver. We saw in {numref}`species_select` that the top 10 species planted each year has varied greatly over the years with Rubrum, Plantanoids, and Zumi making frequent appearances in the top 10. I think it would be interesting to explore more about the species chosen, I wonder how many of these are native species. In the beginning of this analysis, I was interested in how the planting method might affect growth of the trees. {numref}`size_click` showed that there is a much smaller difference between the size of trees planted with and without a root barrier than I theorized. However, we also saw that [root barrier](root-barriers) planting methods were only popular between 2004 and 2009 so, we don’t have enough data to draw any hard conclusions about the effects of root barrier planting on tree size. Finally, in {numref}`point_click_year` we saw that the distribution of trees across Vancouver has been consistent over the years, rather than growing out from a few neighbourhoods. I think we can all appreciate the biodiversity that makes our city unique. 
 # 
 # ## Dashboard
 
@@ -256,9 +288,7 @@ point_map = point_map.encode(
 
 
 # ## References
-# - Data Visualization sample final project for inspiration
-# - [Vancouver Street Trees Database](https://opendata.vancouver.ca/explore/dataset/street-trees/information/?disjunctive.species_name&disjunctive.common_name&disjunctive.height_range_id)
-# -[Data Subset](https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv)
-# - Data Visualization final project extras for map code
-# - Altair documentation including, but not limited to, 
-#     - [Top K Items](https://altair-viz.github.io/gallery/top_k_items.html)
+# 
+# ```{bibliography}
+# :style: unsrt
+# ```

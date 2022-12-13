@@ -5,7 +5,7 @@
 # 
 # This report was prepared by Sarah McDonald on December 12, 2021, as the final project for a Data Visualization class at the University of British Columbia using a [subset](https://raw.githubusercontent.com/UBC-MDS/data_viz_wrangled/main/data/Trees_data_sets/small_unique_vancouver.csv) of the Vancouver Street Trees Data {cite}`vancouvertrees` provided.
 # 
-#  ```{figure} tree-vancouver.jpg
+#  ```{figure} images/tree-vancouver.jpg
 #  ---
 #  name: street-trees
 #  ---
@@ -121,10 +121,18 @@ tree_diam = alt.Chart(trees_nan_small).mark_boxplot().encode(
 tree_diam
 
 
+# (age-est) = 
+# ## Age Estimation
 # As we can see from the chart above, trees without a date record do have a higher median diameter than trees with a date record. Trees increase in circumference as they age, a general formula for estimating the age of a trees is the diameter of the tree multiplied by a growth factor specific to the species.{cite}`Lukaszkiewicz2008`  
 # 
 # $$
 #   age \approx \frac{C}{\pi} \times G
+# $$
+# 
+# Where $\pi$ is defined as the ratio between the circumferance of a circle to its diameter.
+# 
+# $$
+#     \pi = \frac{C}{d}
 # $$
 # 
 # Our theory that trees without date records are older seems be correct, we will exclude these values from future plots regarding date. To make analysis easier, I will add a column with just the year planted.
@@ -212,7 +220,7 @@ tree_side
 # ## Barriers to barriers
 # It looks like the side of the street trees are planted on makes no difference to size however, trees planted with a root barrier do seem to be smaller. Let's see if the trees with root barriers are younger than those without using our full dataset.
 # 
-#  ```{figure} root-barrier.jpg
+#  ```{figure} images/root-barrier.jpg
 #  ---
 #  name: root-barrier
 #  ---
