@@ -1,9 +1,15 @@
 # Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
-
 format: jb-book
 root: intro
-chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+parts:
+  - caption: Exploratory Data Analysis
+    numbered: True
+    chapters:
+    - file: DataViz/final_project_EDA.ipynb
+  - caption: Final Report
+    numbered: True
+    chapters:
+    - file: DataViz/final_project_report.ipynb
+  - caption: Conclusion
+    chapters:
+    - file: conclusion.md
